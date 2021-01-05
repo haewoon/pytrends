@@ -1,5 +1,9 @@
 # pytrends
 
+**Folk for quick and dirty implementations to support "CITY" resolution for other regions besides US.**
+
+
+
 ## Introduction
 
 Unofficial API for Google Trends
