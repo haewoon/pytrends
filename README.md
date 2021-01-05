@@ -2,7 +2,19 @@
 
 **Folk for quick and dirty implementations to support "CITY" resolution for other regions besides US.**
 
+See below code. https://github.com/GeneralMills/pytrends/blob/master/pytrends/request.py#L273
 
+	# make the request
+	region_payload = dict()
+	if self.geo == '':
+	    self.interest_by_region_widget['request'][
+		'resolution'] = resolution
+	elif self.geo == 'US' and resolution in ['DMA', 'CITY', 'REGION']:
+	    self.interest_by_region_widget['request'][
+		'resolution'] = resolution
+
+The original code does not support 'CITY' resolution when geo is not 'US', for example, 'AU'.
+Thus, this code fixes that (intentional/unintentional) logic.
 
 ## Introduction
 
