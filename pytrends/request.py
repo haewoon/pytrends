@@ -270,12 +270,12 @@ class TrendReq(object):
 
         # make the request
         region_payload = dict()
-        if self.geo == '':
-            self.interest_by_region_widget['request'][
-                'resolution'] = resolution
-        elif self.geo == 'US' and resolution in ['DMA', 'CITY', 'REGION']:
-            self.interest_by_region_widget['request'][
-                'resolution'] = resolution
+        # if self.geo == '':
+        self.interest_by_region_widget['request'][
+            'resolution'] = resolution
+        # elif self.geo == 'US' and resolution in ['DMA', 'CITY', 'REGION']:
+        #     self.interest_by_region_widget['request'][
+        #         'resolution'] = resolution
 
         self.interest_by_region_widget['request'][
             'includeLowSearchVolumeGeos'] = inc_low_vol
@@ -293,9 +293,15 @@ class TrendReq(object):
             trim_chars=5,
             params=region_payload,
         )
+
         df = pd.DataFrame(req_json['default']['geoMapData'])
+
         if (df.empty):
             return df
+
+        if 'coordinates' in df.columns:
+            df.rename(columns = {'coordinates': 'geoCode'}, inplace = True)
+
 
         # rename the column with the search keyword
         df = df[['geoName', 'geoCode', 'value']].set_index(
